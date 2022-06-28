@@ -1,26 +1,21 @@
 package by.devincubator;
 
-import by.devincubator.entity.VehicleType;
-
 public class Main {
     public static void main(String[] args) {
+        VehicleType[] types = createArray();
+        showTypes(types);
+        setCoefficientInTypes(types);
+        findMaxCoefficient(types);
+        findAverageCoefficient(types);
+        competeAllPoints(types);
+    }
+
+    private static VehicleType[] createArray() {
         VehicleType bus = new VehicleType("Bus", 1.2);
         VehicleType car = new VehicleType("Car", 1);
         VehicleType rink = new VehicleType("Rink", 1.5);
         VehicleType tractor = new VehicleType("Tractor", 1.2);
-        // 1 point
-        VehicleType[] types = new VehicleType[]{bus, car, rink, tractor};
-        // 2 point
-        showTypes(types);
-        // 3 point
-        setCoefficientInTypes(types);
-        // 4 point
-        findMaxCoefficient(types);
-        // 5 point
-        findAverageCoefficient(types);
-        // 6 point
-        competeAllPoints(types);
-
+        return new VehicleType[]{bus, car, rink, tractor};
     }
 
     private static void showTypes(VehicleType[] types) {

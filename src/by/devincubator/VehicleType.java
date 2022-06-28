@@ -1,4 +1,4 @@
-package by.devincubator.entity;
+package by.devincubator;
 
 public class VehicleType {
     private String name;
@@ -35,7 +35,6 @@ public class VehicleType {
 
     @Override
     public String toString() {
-        return name +
-                "," + '\"' + taxCoefficient + '\"';
+        return name + "," + '\"' + taxCoefficient + '\"';
     }
 }
