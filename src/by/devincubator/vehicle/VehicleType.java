@@ -1,4 +1,4 @@
-package by.devincubator;
+package by.devincubator.vehicle;
 
 public class VehicleType {
     private String name;
