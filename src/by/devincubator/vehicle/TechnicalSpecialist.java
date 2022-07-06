@@ -2,6 +2,7 @@ package by.devincubator.vehicle;
 
 public class TechnicalSpecialist {
     public static final int LOWER_LIMIT_MANUFACTURE_YEAR = 1886;
+    private static final String REGEX_REGISTRATION_NUMBER = "[0-9]{4}\\ [A-Z]{2}\\-[0-9]";
 
     static public boolean validateManufactureYear(int year) {
         int length = String.valueOf(year).length();
@@ -29,38 +30,6 @@ public class TechnicalSpecialist {
     }
 
     static public boolean validateRegistrationNumber(String number) {
-        char[] chars = number.toCharArray();
-        if (number == null) {
-            return false;
-        }
-        if (!checkNumber(chars[0]) || !checkNumber(chars[1]) || !checkNumber(chars[2]) || !checkNumber(chars[3]) || !checkNumber(chars[8])) {
-            return false;
-        }
-        if (!checkString(number.substring(5, 7))) {
-            return false;
-        }
-        if (!checkSymbol(' ', number, 4) && !checkSymbol('-', number, 7)) {
-            return false;
-        }
-        return true;
-    }
-
-    static private boolean checkNumber(char number) {
-        return number >= '0' && number <= '9';
-    }
-
-    static private boolean checkString(String str) {
-        if (str != null) {
-            for (int i = 0; i < str.length(); i++) {
-                if (str.charAt(i) < 'A' || str.charAt(i) > 'Z') {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    static private boolean checkSymbol(char symbol, String str, int index) {
-        return str.charAt(index) == symbol;
+        return number.matches(REGEX_REGISTRATION_NUMBER);
     }
 }
