@@ -32,7 +32,7 @@ public class Main {
         Vehicle car3 = new Vehicle(types[0], "Electric Bus E321", "6785 BA-7", 12080, 2019, 20451, Color.GREEN, 2.4);
         Vehicle car4 = new Vehicle(types[1], "Golf 5", "8682 AX-7", 1200, 2006, 230451, Color.GRAY, 1.6);
         Vehicle car5 = new Vehicle(types[1], "Tesla Model S 70D", "0001 AA-7", 2200, 2019, 10454, Color.WHITE, 2.4);
-        Vehicle car6 = new Vehicle(types[2], "Hamm HD 12 VV", null, 3000, 2016, 122, Color.YELLOW, 2.0);
+        Vehicle car6 = new Vehicle(types[2], "Hamm HD 12 VV", "1234 FF-7", 3000, 2016, 122, Color.YELLOW, 2.0);
         Vehicle car7 = new Vehicle(types[3], "МТЗ Беларус-1025.4", "1145 AB-7", 1200, 2020, 109, Color.RED, 3.4);
         return new Vehicle[]{car1, car2, car3, car4, car5, car6, car7};
     }
