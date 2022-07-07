@@ -23,13 +23,27 @@ public class Vehicle implements Comparable<Vehicle> {
                    int mileage,
                    Color color,
                    double sizeTank) {
-        this.type = type;
-        this.modelName = modelName;
-        this.registrationNumber = registrationNumber;
-        this.weightKg = weightKg;
-        this.manufactureYear = manufactureYear;
-        this.mileage = mileage;
-        this.color = color;
+        if (TechnicalSpecialist.validateVehicleType(type)) {
+            this.type = type;
+        }
+        if (TechnicalSpecialist.validateModelName(modelName)) {
+            this.modelName = modelName;
+        }
+        if (TechnicalSpecialist.validateRegistrationNumber(registrationNumber)) {
+            this.registrationNumber = registrationNumber;
+        }
+        if (TechnicalSpecialist.validateWeight(weightKg)) {
+            this.weightKg = weightKg;
+        }
+        if (TechnicalSpecialist.validateManufactureYear(manufactureYear)) {
+            this.manufactureYear = manufactureYear;
+        }
+        if (TechnicalSpecialist.validateMileage(mileage)) {
+            this.mileage = mileage;
+        }
+        if (TechnicalSpecialist.validateColor(color)) {
+            this.color = color;
+        }
         this.sizeTank = sizeTank;
     }
 
@@ -38,7 +52,9 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     public void setType(VehicleType type) {
-        this.type = type;
+        if (TechnicalSpecialist.validateVehicleType(type)) {
+            this.type = type;
+        }
     }
 
     public String getModelName() {
@@ -46,7 +62,9 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     public void setModelName(String modelName) {
-        this.modelName = modelName;
+        if (TechnicalSpecialist.validateModelName(modelName)) {
+            this.modelName = modelName;
+        }
     }
 
     public String getRegistrationNumber() {
@@ -54,7 +72,9 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
+        if (TechnicalSpecialist.validateRegistrationNumber(registrationNumber)) {
+            this.registrationNumber = registrationNumber;
+        }
     }
 
     public int getWeightKg() {
@@ -62,7 +82,9 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     public void setWeightKg(int weightKg) {
-        this.weightKg = weightKg;
+        if (TechnicalSpecialist.validateWeight(weightKg)) {
+            this.weightKg = weightKg;
+        }
     }
 
     public int getManufactureYear() {
@@ -70,7 +92,9 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     public void setManufactureYear(int manufactureYear) {
-        this.manufactureYear = manufactureYear;
+        if (TechnicalSpecialist.validateManufactureYear(manufactureYear)) {
+            this.manufactureYear = manufactureYear;
+        }
     }
 
     public int getMileage() {
@@ -78,7 +102,9 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     public void setMileage(int mileage) {
-        this.mileage = mileage;
+        if (TechnicalSpecialist.validateMileage(mileage)) {
+            this.mileage = mileage;
+        }
     }
 
     public Color getColor() {
@@ -86,7 +112,9 @@ public class Vehicle implements Comparable<Vehicle> {
     }
 
     public void setColor(Color color) {
-        this.color = color;
+        if (TechnicalSpecialist.validateColor(color)) {
+            this.color = color;
+        }
     }
 
     public double getSizeTank() {
@@ -103,14 +131,14 @@ public class Vehicle implements Comparable<Vehicle> {
 
     @Override
     public String toString() {
-        return type +
-                ", " + modelName +
-                ", " + registrationNumber +
-                ", " + weightKg +
-                ", " + manufactureYear +
-                ", " + mileage +
-                ", " + color +
-                ", " + sizeTank;
+        return type + ", " +
+                modelName + ", " +
+                registrationNumber + ", " +
+                weightKg + ", " +
+                manufactureYear + ", " +
+                mileage + ", " +
+                color + ", " +
+                sizeTank;
     }
 
     @Override
