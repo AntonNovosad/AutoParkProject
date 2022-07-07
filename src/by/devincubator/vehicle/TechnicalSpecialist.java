@@ -1,5 +1,9 @@
 package by.devincubator.vehicle;
 
+import by.devincubator.engine.DieselEngine;
+import by.devincubator.engine.ElectricalEngine;
+import by.devincubator.engine.GasolineEngine;
+
 public class TechnicalSpecialist {
     public static final int LOWER_LIMIT_MANUFACTURE_YEAR = 1886;
     private static final String REGEX_REGISTRATION_NUMBER = "[0-9]{4}\\ [A-Z]{2}\\-[0-9]";
@@ -31,5 +35,25 @@ public class TechnicalSpecialist {
 
     static public boolean validateRegistrationNumber(String number) {
         return number.matches(REGEX_REGISTRATION_NUMBER);
+    }
+
+    static public boolean validateElectricalEngine(ElectricalEngine engine) {
+        return engine != null &&
+                engine.getBatterySize() > 0 &&
+                engine.getElectricityConsumption() > 0;
+    }
+
+    static public boolean validateGasolineEngine(GasolineEngine engine) {
+        return engine != null &&
+                engine.getEngineCapacity() > 0 &&
+                engine.getFuelTankCapacity() > 0 &&
+                engine.getFuelConsumptionPer100() > 0;
+    }
+
+    static public boolean validateDieselEngine(DieselEngine engine) {
+        return engine != null &&
+                engine.getEngineCapacity() > 0 &&
+                engine.getFuelTankCapacity() > 0 &&
+                engine.getFuelConsumptionPer100() > 0;
     }
 }
