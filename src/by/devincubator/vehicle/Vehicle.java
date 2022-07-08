@@ -1,5 +1,7 @@
 package by.devincubator.vehicle;
 
+import by.devincubator.engine.Startable;
+
 import java.util.Objects;
 
 public class Vehicle implements Comparable<Vehicle> {
@@ -10,7 +12,7 @@ public class Vehicle implements Comparable<Vehicle> {
     private int manufactureYear;
     private int mileage;
     private Color color;
-    private double sizeTank;
+    private Startable engine;
 
     public Vehicle() {
     }
@@ -22,7 +24,7 @@ public class Vehicle implements Comparable<Vehicle> {
                    int manufactureYear,
                    int mileage,
                    Color color,
-                   double sizeTank) {
+                   Startable engine) {
         if (TechnicalSpecialist.validateVehicleType(type)) {
             this.type = type;
         }
@@ -44,7 +46,7 @@ public class Vehicle implements Comparable<Vehicle> {
         if (TechnicalSpecialist.validateColor(color)) {
             this.color = color;
         }
-        this.sizeTank = sizeTank;
+        this.engine = engine;
     }
 
     public VehicleType getType() {
@@ -117,16 +119,16 @@ public class Vehicle implements Comparable<Vehicle> {
         }
     }
 
-    public double getSizeTank() {
-        return sizeTank;
+    public Startable getEngine() {
+        return engine;
     }
 
-    public void setSizeTank(double sizeTank) {
-        this.sizeTank = sizeTank;
+    public void setEngine(Startable engine) {
+        this.engine = engine;
     }
 
     public Double getCalcTaxPerMonth() {
-        return (weightKg * 0.0013) + (type.getTaxCoefficient() * 30) + 5;
+        return (weightKg * 0.0013) + (type.getTaxCoefficient() * engine.getTaxPerMonth() * 30) + 5;
     }
 
     @Override
@@ -138,7 +140,7 @@ public class Vehicle implements Comparable<Vehicle> {
                 manufactureYear + ", " +
                 mileage + ", " +
                 color + ", " +
-                sizeTank;
+                engine;
     }
 
     @Override
