@@ -1,6 +1,7 @@
 package by.devincubator.vehicle;
 
 import by.devincubator.engine.Startable;
+import by.devincubator.exception.NotVehicleException;
 
 import java.util.Objects;
 
@@ -25,28 +26,46 @@ public class Vehicle implements Comparable<Vehicle> {
                    int mileage,
                    Color color,
                    Startable engine) {
-        if (TechnicalSpecialist.validateVehicleType(type)) {
-            this.type = type;
+        try {
+            if (!TechnicalSpecialist.validateVehicleType(type)) {
+                throw new NotVehicleException("Type " + type);
+            } else {
+                this.type = type;
+            }
+            if (!TechnicalSpecialist.validateModelName(modelName)) {
+                throw new NotVehicleException("Model name " + modelName);
+            } else {
+                this.modelName = modelName;
+            }
+            if (!TechnicalSpecialist.validateRegistrationNumber(registrationNumber)) {
+                throw new NotVehicleException("Registration number " + registrationNumber);
+            } else {
+                this.registrationNumber = registrationNumber;
+            }
+            if (!TechnicalSpecialist.validateWeight(weightKg)) {
+                throw new NotVehicleException("Weight " + weightKg);
+            } else {
+                this.weightKg = weightKg;
+            }
+            if (!TechnicalSpecialist.validateManufactureYear(manufactureYear)) {
+                throw new NotVehicleException("Manufacture year " + manufactureYear);
+            } else {
+                this.manufactureYear = manufactureYear;
+            }
+            if (!TechnicalSpecialist.validateMileage(mileage)) {
+                throw new NotVehicleException("Mileage " + mileage);
+            } else {
+                this.mileage = mileage;
+            }
+            if (!TechnicalSpecialist.validateColor(color)) {
+                throw new NotVehicleException("Color " + color);
+            } else {
+                this.color = color;
+            }
+            this.engine = engine;
+        } catch (NotVehicleException e) {
+            System.out.println(e.getMessage());
         }
-        if (TechnicalSpecialist.validateModelName(modelName)) {
-            this.modelName = modelName;
-        }
-        if (TechnicalSpecialist.validateRegistrationNumber(registrationNumber)) {
-            this.registrationNumber = registrationNumber;
-        }
-        if (TechnicalSpecialist.validateWeight(weightKg)) {
-            this.weightKg = weightKg;
-        }
-        if (TechnicalSpecialist.validateManufactureYear(manufactureYear)) {
-            this.manufactureYear = manufactureYear;
-        }
-        if (TechnicalSpecialist.validateMileage(mileage)) {
-            this.mileage = mileage;
-        }
-        if (TechnicalSpecialist.validateColor(color)) {
-            this.color = color;
-        }
-        this.engine = engine;
     }
 
     public VehicleType getType() {

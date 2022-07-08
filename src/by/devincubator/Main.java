@@ -11,10 +11,6 @@ public class Main {
     public static void main(String[] args) {
         Vehicle[] types = createArrayVehicle();
         showTypes(types);
-        System.out.println();
-        displaySameTypes(types);
-        System.out.println();
-        displayMaxKilometres(types);
     }
 
     private static VehicleType[] createArrayVehicleType() {
