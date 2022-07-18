@@ -3,9 +3,11 @@ package by.devincubator.vehicle;
 import by.devincubator.engine.Startable;
 import by.devincubator.exception.NotVehicleException;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Vehicle implements Comparable<Vehicle> {
+    private int id;
     private VehicleType type;
     private String modelName;
     private String registrationNumber;
@@ -14,8 +16,31 @@ public class Vehicle implements Comparable<Vehicle> {
     private int mileage;
     private Color color;
     private Startable engine;
+    private List<Rent> rentList;
 
     public Vehicle() {
+    }
+
+    public Vehicle(int id,
+                   VehicleType type,
+                   String modelName,
+                   String registrationNumber,
+                   int weightKg,
+                   int manufactureYear,
+                   int mileage,
+                   Color color,
+                   Startable engine,
+                   List<Rent> rentList) {
+        this.id = id;
+        this.type = type;
+        this.modelName = modelName;
+        this.registrationNumber = registrationNumber;
+        this.weightKg = weightKg;
+        this.manufactureYear = manufactureYear;
+        this.mileage = mileage;
+        this.color = color;
+        this.engine = engine;
+        this.rentList = rentList;
     }
 
     public Vehicle(VehicleType type,
@@ -66,6 +91,22 @@ public class Vehicle implements Comparable<Vehicle> {
         } catch (NotVehicleException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Rent> getRentList() {
+        return rentList;
+    }
+
+    public void setRentList(List<Rent> rentList) {
+        this.rentList = rentList;
     }
 
     public VehicleType getType() {
@@ -150,9 +191,22 @@ public class Vehicle implements Comparable<Vehicle> {
         return (weightKg * 0.0013) + (type.getTaxCoefficient() * engine.getTaxPerMonth() * 30) + 5;
     }
 
+    public double getTotalIncome() {
+        double common = 0;
+        for (Rent r : rentList) {
+            common += r.getPrice();
+        }
+        return common;
+    }
+
+    public double getTotalProfit() {
+        return getTotalIncome() - getCalcTaxPerMonth();
+    }
+
     @Override
     public String toString() {
-        return type + ", " +
+        return id + ", " +
+                type + ", " +
                 modelName + ", " +
                 registrationNumber + ", " +
                 weightKg + ", " +

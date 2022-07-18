@@ -1,6 +1,7 @@
 package by.devincubator.vehicle;
 
 public class VehicleType {
+    private int id;
     private String name;
     private double taxCoefficient;
 
@@ -10,6 +11,20 @@ public class VehicleType {
     public VehicleType(String name, double taxCoefficient) {
         this.name = name;
         this.taxCoefficient = taxCoefficient;
+    }
+
+    public VehicleType(int id, String name, double taxCoefficient) {
+        this.id = id;
+        this.name = name;
+        this.taxCoefficient = taxCoefficient;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
