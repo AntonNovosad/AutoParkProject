@@ -110,6 +110,10 @@ public class VehicleCollection {
         }
     }
 
+    public List<Vehicle> getVehicleList() {
+        return vehicleList;
+    }
+
     public int delete(int index) {
         if (isIndex(index)) {
             vehicleList.remove(index);

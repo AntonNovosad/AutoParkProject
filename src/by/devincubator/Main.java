@@ -8,26 +8,23 @@ import java.util.Date;
 import java.util.List;
 
 public class Main {
-    private static final String TYPES_PATH = "./types.csv";
-    private static final String VEHICLES_PATH = "./vehicles.csv";
-    private static final String RENTS_PATH = "./rents.csv";
+    private static final String PATH = "./src/resources/data/";
+    private static final String TYPES_PATH = PATH + "types.csv";
+    private static final String VEHICLES_PATH = PATH + "vehicles.csv";
+    private static final String RENTS_PATH = PATH + "rents.csv";
 
     public static void main(String[] args) {
         MyComparator comparator = new MyComparator();
         VehicleCollection collection = new VehicleCollection(TYPES_PATH, VEHICLES_PATH, RENTS_PATH);
+        VehicleQueue<Vehicle> list = new VehicleQueue<>();
 
-        collection.display();
+        for (Vehicle v : collection.getVehicleList()) {
+            list.enqueue(v);
+        }
 
-        collection.insert(8, createVehicle());
-
-        collection.delete(1);
-        collection.delete(4);
-
-        collection.display();
-
-        collection.sort(comparator);
-
-        collection.display();
+        while (!list.isEmpty()) {
+            System.out.println("Auto " + list.dequeue().getId() + " washed");
+        }
     }
 
     private static List<Rent> createListRent() {
