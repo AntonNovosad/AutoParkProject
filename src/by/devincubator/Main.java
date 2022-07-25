@@ -16,14 +16,15 @@ public class Main {
     public static void main(String[] args) {
         MyComparator comparator = new MyComparator();
         VehicleCollection collection = new VehicleCollection(TYPES_PATH, VEHICLES_PATH, RENTS_PATH);
-        VehicleQueue<Vehicle> list = new VehicleQueue<>();
+        VehicleStack<Vehicle> list = new VehicleStack<>();
 
         for (Vehicle v : collection.getVehicleList()) {
-            list.enqueue(v);
+            list.push(v);
+            System.out.println("Auto " + v.getId() + " drove into the garage");
         }
-
+        System.out.println("Garage is full");
         while (!list.isEmpty()) {
-            System.out.println("Auto " + list.dequeue().getId() + " washed");
+            System.out.println("Auto " + list.pop().getId() + " drove out the garage");
         }
     }
 
