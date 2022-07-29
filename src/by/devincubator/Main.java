@@ -1,6 +1,7 @@
 package by.devincubator;
 
 import by.devincubator.engine.GasolineEngine;
+import by.devincubator.exception.DefectedVehicleException;
 import by.devincubator.vehicle.*;
 
 import java.util.ArrayList;
@@ -14,17 +15,32 @@ public class Main {
     private static final String RENTS_PATH = PATH + "rents.csv";
 
     public static void main(String[] args) {
-        MyComparator comparator = new MyComparator();
         VehicleCollection collection = new VehicleCollection(TYPES_PATH, VEHICLES_PATH, RENTS_PATH);
-        VehicleStack<Vehicle> list = new VehicleStack<>();
+        MechanicService mechanicService = new MechanicService();
 
         for (Vehicle v : collection.getVehicleList()) {
-            list.push(v);
-            System.out.println("Auto " + v.getId() + " drove into the garage");
+            mechanicService.detectBreaking(v);
         }
-        System.out.println("Garage is full");
-        while (!list.isEmpty()) {
-            System.out.println("Auto " + list.pop().getId() + " drove out the garage");
+
+        addRent(collection, mechanicService);
+
+        mechanicService.showVehicleWithoutBrokenDetails(collection.getVehicleList());
+
+        mechanicService.showVehicleWithMaxBrokenDetails(collection.getVehicleList());
+
+        for (Vehicle v : collection.getVehicleList()) {
+            mechanicService.repair(v);
+        }
+    }
+
+    private static void addRent(VehicleCollection collection, MechanicService mechanicService) {
+        RentVehicle rentVehicle = new RentVehicle();
+        for (Vehicle v : collection.getVehicleList()) {
+            try {
+                rentVehicle.rentVehicle(v, mechanicService, 100);
+            } catch (DefectedVehicleException e) {
+                e.getMessage();
+            }
         }
     }
 
