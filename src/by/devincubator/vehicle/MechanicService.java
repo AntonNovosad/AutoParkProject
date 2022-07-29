@@ -85,7 +85,7 @@ public class MechanicService implements Fixer {
         }
     }
 
-    private List<String> readFile(String inFile) {
+    private static List<String> readFile(String inFile) {
         List<String> list = null;
         try {
             list = Files.readAllLines(Paths.get(inFile));
@@ -100,23 +100,23 @@ public class MechanicService implements Fixer {
     }
 
     public void showVehicleWithoutBrokenDetails(List<Vehicle> listVehicle) {
-        listVehicle.forEach(vehicle -> {
-            if (!isBroken(vehicle)) {
-                System.out.println("Auto #" + vehicle.toString() + " not broken");
-            }
-        });
+        System.out.println("Vehicle without broken details:");
+        listVehicle
+                .stream()
+                .filter(vehicle -> !isBroken(vehicle))
+                .forEach(System.out::println);
     }
 
     public void showVehicleWithMaxBrokenDetails(List<Vehicle> listVehicle) {
         List<String> list = readFile(PATH_ORDERS_FILE);
         int max = findMaxNumberBrokenDetails();
+        System.out.println("Vehicle with max broken details:");
         list.forEach(s -> {
             if (max == findNumberBrokenDetails(s)) {
-                listVehicle.forEach(vehicle -> {
-                    if (s.matches(vehicle.getId() + REGEX)) {
-                        System.out.println("Vehicle with max broken details: " + vehicle);
-                    }
-                });
+                listVehicle
+                        .stream()
+                        .filter(vehicle -> s.matches(vehicle.getId() + REGEX))
+                        .forEach(System.out::println);
             }
         });
     }
@@ -138,6 +138,22 @@ public class MechanicService implements Fixer {
         for (int i = 1; i < array.length; i++) {
             if (array[i].matches("[1-3]")) {
                 numberOfDetail += Integer.parseInt(array[i]);
+            }
+        }
+        return numberOfDetail;
+    }
+
+    public static int getDefectCount(Vehicle vehicle) {
+        List<String> list = readFile(PATH_ORDERS_FILE);
+        int numberOfDetail = 0;
+        for (String str : list) {
+            if (str.matches(vehicle.getId() + REGEX)) {
+                String[] array = str.split(",");
+                for (int i = 1; i < array.length; i++) {
+                    if (array[i].matches("[1-3]")) {
+                        numberOfDetail += Integer.parseInt(array[i]);
+                    }
+                }
             }
         }
         return numberOfDetail;
