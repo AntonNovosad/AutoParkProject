@@ -10,10 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class VehicleCollection {
     private static final String SEPARATOR_FOR_SPLIT = ",";
@@ -59,6 +57,27 @@ public class VehicleCollection {
             listVehicle.add(createVehicle(s));
         }
         return listVehicle;
+    }
+
+    public List<Vehicle> getListBrokenVehicle(MechanicService mechanicService, String fileName) {
+        return loadVehicles(fileName)
+                .stream()
+                .filter(x -> !mechanicService.detectBreaking(x).isEmpty())
+                .collect(Collectors.toList());
+    }
+
+    public List<Vehicle> getListCountBrokenVehicle(List<Vehicle> vehicleList) {
+        return vehicleList
+                .stream()
+                .sorted(new ComparatorByDefectCount())
+                .collect(Collectors.toList());
+    }
+
+    public Optional<Vehicle> getVehicleWithMaxTas(String path) {
+        return Optional.of(loadVehicles(path)
+                .stream()
+                .max(new ComparatorByTaxPerMonth())
+                .get());
     }
 
     private VehicleType createType(String csvString) {

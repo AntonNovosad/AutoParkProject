@@ -1,11 +1,9 @@
 package by.devincubator;
 
-import by.devincubator.engine.GasolineEngine;
 import by.devincubator.exception.DefectedVehicleException;
 import by.devincubator.vehicle.*;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -18,19 +16,28 @@ public class Main {
         VehicleCollection collection = new VehicleCollection(TYPES_PATH, VEHICLES_PATH, RENTS_PATH);
         MechanicService mechanicService = new MechanicService();
 
-        for (Vehicle v : collection.getVehicleList()) {
-            mechanicService.detectBreaking(v);
-        }
+        List<Vehicle> brokenVehicleList = collection.getListBrokenVehicle(mechanicService, VEHICLES_PATH);
+        displayVehicleList(brokenVehicleList);
+
+        List<Vehicle> sortBrokenVehicleList = collection.getListCountBrokenVehicle(brokenVehicleList);
+        displayVehicleList(sortBrokenVehicleList);
+
+        System.out.println("Vehicle with max tax: " + collection.getVehicleWithMaxTas(VEHICLES_PATH));
+
+        findAndDisplayVolkswagenVehicle(brokenVehicleList);
+
+        findAndDisplayNewVehicle(brokenVehicleList);
+
+        washVehicle(collection.loadVehicles(VEHICLES_PATH));
+        garageVehicle(collection.loadVehicles(VEHICLES_PATH));
 
         addRent(collection, mechanicService);
 
         mechanicService.showVehicleWithoutBrokenDetails(collection.getVehicleList());
 
-        mechanicService.showVehicleWithMaxBrokenDetails(collection.getVehicleList());
+        mechanicService.showVehicleWithMaxBrokenDetails(brokenVehicleList);
 
-        for (Vehicle v : collection.getVehicleList()) {
-            mechanicService.repair(v);
-        }
+        brokenVehicleList.forEach(vehicle -> mechanicService.repair(vehicle));
     }
 
     private static void addRent(VehicleCollection collection, MechanicService mechanicService) {
@@ -44,24 +51,38 @@ public class Main {
         }
     }
 
-    private static List<Rent> createListRent() {
-        List<Rent> list = new ArrayList<>();
-        list.add(new Rent(8, new Date(), 100));
-        list.add(new Rent(8, new Date(), 50));
-        return list;
+    private static void findAndDisplayVolkswagenVehicle(List<Vehicle> vehicleList) {
+        vehicleList
+                .stream()
+                .filter(vehicle -> vehicle.getModelName().matches(".*Volkswagen.*"))
+                .forEach(System.out::println);
     }
 
-    private static Vehicle createVehicle() {
-        return new Vehicle(
-                8,
-                new VehicleType(1, "Bus", 1.2),
-                "Volkswagen ",
-                "5437 AX-7",
-                2022,
-                2015,
-                36000,
-                Color.BLUE,
-                new GasolineEngine(2, 75, 8.1),
-                createListRent());
+    private static void findAndDisplayNewVehicle(List<Vehicle> vehicleList) {
+        System.out.println("The newest vehicle: " + vehicleList
+                .stream()
+                .filter(vehicle -> vehicle.getModelName().matches(".*Volkswagen.*"))
+                .max(Comparator.comparingInt(Vehicle::getManufactureYear))
+                .get());
+    }
+
+    private static void displayVehicleList(List<Vehicle> vehicleList) {
+        vehicleList.forEach(System.out::println);
+    }
+
+    private static void washVehicle(List<Vehicle> vehicleList) {
+        vehicleList
+                .stream()
+                .forEach(vehicle -> System.out.println("Auto " + vehicle.getId() + " washed"));
+    }
+
+    private static void garageVehicle(List<Vehicle> vehicleList) {
+        vehicleList
+                .stream()
+                .forEach(vehicle -> System.out.println("Auto " + vehicle.getId() + " entered in garage"));
+        vehicleList
+                .stream()
+                .sorted((o1, o2) -> o2.getId() - o1.getId())
+                .forEach(vehicle -> System.out.println("Auto " + vehicle.getId() + " went out from garage"));
     }
 }
