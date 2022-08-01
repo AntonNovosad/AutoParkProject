@@ -1,4 +1,4 @@
-package by.devincubator.engine;
+package by.devincubator.vehicle.engine;
 
 public class DieselEngine extends CombustionEngine {
     private static final String TYPE_NAME = "Diesel";

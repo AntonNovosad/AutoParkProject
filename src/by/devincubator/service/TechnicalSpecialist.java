@@ -1,8 +1,10 @@
-package by.devincubator.vehicle;
+package by.devincubator.service;
 
-import by.devincubator.engine.DieselEngine;
-import by.devincubator.engine.ElectricalEngine;
-import by.devincubator.engine.GasolineEngine;
+import by.devincubator.vehicle.Color;
+import by.devincubator.vehicle.VehicleType;
+import by.devincubator.vehicle.engine.DieselEngine;
+import by.devincubator.vehicle.engine.ElectricalEngine;
+import by.devincubator.vehicle.engine.GasolineEngine;
 
 public class TechnicalSpecialist {
     public static final int LOWER_LIMIT_MANUFACTURE_YEAR = 1886;

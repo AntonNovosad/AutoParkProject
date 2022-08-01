@@ -1,31 +1,32 @@
-package by.devincubator.vehicle;
+package by.devincubator.vehicle.collection;
+
+import by.devincubator.vehicle.Vehicle;
 
 import java.util.Arrays;
 
-public class VehicleStack<T> {
-    private static final String EMPTY_STACK = "Stack is empty";
+public class VehicleQueue<T> {
+    private static final String EMPTY_QUEUE = "Queue is empty";
     private static final int MIN_INITIAL_CAPACITY = 8;
     private Vehicle[] arrayElements;
     private int head;
     private int tail;
     private int size;
 
-    public VehicleStack() {
+    public VehicleQueue() {
         arrayElements = new Vehicle[MIN_INITIAL_CAPACITY];
         head = 0;
         tail = -1;
         size = 0;
     }
 
-    public Vehicle pop() {
+    public Vehicle dequeue() {
         Vehicle vehicle = peek();
         size--;
-        tail--;
-        arrayElements = Arrays.copyOfRange(arrayElements, head, size);
+        arrayElements = Arrays.copyOfRange(arrayElements, 1, arrayElements.length);
         return vehicle;
     }
 
-    public void push(Vehicle obj) {
+    public void enqueue(Vehicle obj) {
         if (tail == arrayElements.length - 1) {
             arrayElements = Arrays.copyOf(arrayElements, size() + 1);
         }
@@ -35,9 +36,9 @@ public class VehicleStack<T> {
 
     public Vehicle peek() {
         if (isEmpty()) {
-            throw new IllegalStateException(EMPTY_STACK);
+            throw new IllegalStateException(EMPTY_QUEUE);
         }
-        return arrayElements[tail];
+        return arrayElements[head];
     }
 
     public int size() {

@@ -1,4 +1,6 @@
-package by.devincubator.vehicle;
+package by.devincubator.service;
+
+import by.devincubator.vehicle.Vehicle;
 
 import java.util.Map;
 
