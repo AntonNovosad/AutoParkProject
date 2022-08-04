@@ -1,4 +1,4 @@
-package by.devincubator.engine;
+package by.devincubator.vehicle.engine;
 
 public class ElectricalEngine extends AbstractEngine {
     private static final String TYPE_NAME = "Electrical";

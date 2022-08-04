@@ -1,7 +1,10 @@
 package by.devincubator;
 
 import by.devincubator.exception.DefectedVehicleException;
+import by.devincubator.service.MechanicService;
+import by.devincubator.service.RentVehicle;
 import by.devincubator.vehicle.*;
+import by.devincubator.vehicle.collection.VehicleCollection;
 
 import java.util.Comparator;
 import java.util.List;

@@ -1,13 +1,15 @@
-package by.devincubator.vehicle;
+package by.devincubator.vehicle.collection;
 
-import by.devincubator.engine.AbstractEngine;
-import by.devincubator.engine.DieselEngine;
-import by.devincubator.engine.ElectricalEngine;
-import by.devincubator.engine.GasolineEngine;
+import by.devincubator.service.MechanicService;
+import by.devincubator.utils.ReadFile;
+import by.devincubator.vehicle.*;
+import by.devincubator.vehicle.comparator.ComparatorByDefectCount;
+import by.devincubator.vehicle.comparator.ComparatorByTaxPerMonth;
+import by.devincubator.vehicle.engine.AbstractEngine;
+import by.devincubator.vehicle.engine.DieselEngine;
+import by.devincubator.vehicle.engine.ElectricalEngine;
+import by.devincubator.vehicle.engine.GasolineEngine;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -33,7 +35,7 @@ public class VehicleCollection {
     }
 
     public List<VehicleType> loadTypes(String inFile) {
-        List<String> list = readFile(inFile);
+        List<String> list = ReadFile.readFile(inFile);
         List<VehicleType> listVehicleType = new ArrayList<>();
         for (String s : list) {
             listVehicleType.add(createType(s));
@@ -42,7 +44,7 @@ public class VehicleCollection {
     }
 
     public List<Rent> loadRents(String inFile) {
-        List<String> list = readFile(inFile);
+        List<String> list = ReadFile.readFile(inFile);
         List<Rent> listRent = new ArrayList<>();
         for (String s : list) {
             listRent.add(createRent(s));
@@ -51,7 +53,7 @@ public class VehicleCollection {
     }
 
     public List<Vehicle> loadVehicles(String inFile) {
-        List<String> list = readFile(inFile);
+        List<String> list = ReadFile.readFile(inFile);
         List<Vehicle> listVehicle = new ArrayList<>();
         for (String s : list) {
             listVehicle.add(createVehicle(s));
@@ -182,16 +184,6 @@ public class VehicleCollection {
                     v.getTotalProfit());
         }
         System.out.printf(Column.TOTAL.getName() + ": %.2f\n", sumTotalProfit());
-    }
-
-    private List<String> readFile(String inFile) {
-        List<String> list = null;
-        try {
-            list = Files.readAllLines(Paths.get(inFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return list;
     }
 
     private String[] createArrayString(String line) {

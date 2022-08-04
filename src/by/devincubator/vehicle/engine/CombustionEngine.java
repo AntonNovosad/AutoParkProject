@@ -1,4 +1,4 @@
-package by.devincubator.engine;
+package by.devincubator.vehicle.engine;
 
 public abstract class CombustionEngine extends AbstractEngine {
     private double engineCapacity;

@@ -1,10 +1,11 @@
-package by.devincubator.vehicle;
+package by.devincubator.service;
+
+import by.devincubator.utils.WriteFile;
+import by.devincubator.vehicle.Vehicle;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class MechanicService implements Fixer {
         fillMap(map);
         if (!map.isEmpty()) {
             String line = createStringFromMap(map, vehicle);
-            writeString(line, PATH_ORDERS_FILE);
+            WriteFile.writeString(line, PATH_ORDERS_FILE);
         }
         return map;
     }
@@ -35,7 +36,7 @@ public class MechanicService implements Fixer {
         if (isBroken(vehicle)) {
             list.removeIf(i -> i.matches(vehicle.getId() + REGEX));
         }
-        writeList(list, PATH_ORDERS_FILE);
+        WriteFile.writeList(list, PATH_ORDERS_FILE);
     }
 
     @Override
@@ -67,22 +68,6 @@ public class MechanicService implements Fixer {
         }
         line = line + "\n";
         return line;
-    }
-
-    private void writeString(String line, String fileName) {
-        try {
-            Files.write(Paths.get(fileName), line.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void writeList(List<String> list, String fileName) {
-        try {
-            Files.write(Paths.get(fileName), list, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     private static List<String> readFile(String inFile) {
